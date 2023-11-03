@@ -62,3 +62,24 @@ The required API feature is only available for Obsidian v0.12.2+.
    enable the plugin from there.
 
 > Note: The `.obsidian` folder may be hidden. On macOS, you should be able to press `Command+Shift+Dot` to show the folder in Finder.
+
+
+## Development
+
+```bash
+npm install .
+```
+
+To build, 
+```bash
+npm run dev
+```
+
+Other options
+```bash
+npm run release   #  tsc --noEmi
+npm run eslint    #  cross-env BUILD=production node esbuild.j
+npm run prettier    #  prettier --write 'src/**/*.+(ts|tsx|json|html|css)
+npm run build   #  eslint . --ext .ts,.tsx --fi
+npm run check   #  release-i
+```
