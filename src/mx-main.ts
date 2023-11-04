@@ -101,15 +101,34 @@ export default class MediaExtended extends Plugin {
     }
     this.registerMarkdownPostProcessor(getLinkProcessor(this, "external"));
 
-    if (!this.app.isMobile) {
-      this.registerCodeMirror((cm) => {
-        const warpEl = cm.getWrapperElement();
-        warpEl.on("mousedown", linkSelector, this.cmLinkHandler);
-        this.register(() =>
-          warpEl.off("mousedown", linkSelector, this.cmLinkHandler),
-        );
-      });
-    }
+    // if (!this.app.isMobile) {
+    //   this.registerCodeMirror((cm) => {
+    //     console.log("registering cm link handler");
+    //     const warpEl = cm.getWrapperElement();
+    //     warpEl.on("mousedown", linkSelector, this.cmLinkHandler);
+    //     this.register(() =>
+    //       warpEl.off("mousedown", linkSelector, this.cmLinkHandler),
+    //     );
+    //   });
+    // }
+
+    // add CodeMirror link handler for mouse click: ctrl + click
+    document.addEventListener("mousedown", (e) => {
+      if (e.target.querySelector(linkSelector)) {
+        // console.log("cm-url catched as", e.target);
+        this.cmLinkHandler(e, e.target as HTMLElement);
+      }
+    });
+
+    // add CodeMirror link handler for key press: ctrl + shift + Enter 
+    document.addEventListener('keydown', (e) => {
+      if (e.ctrlKey && e.key === 'Enter') {
+        if (e.target.querySelector(linkSelector)) {
+          // console.log("cm-url catched as",e.target);
+          this.cmLinkHandler(e, e.target as HTMLElement);
+        }
+      }
+    });
 
     this.registerExtensions();
 
