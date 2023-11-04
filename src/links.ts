@@ -131,22 +131,33 @@ export const getCMLinkHandler = (plugin: MediaExtended) => {
         if (!file) return;
         info = await getMediaInfo(file, hash);
       } else {
-        if (
-          del.hasClass("cm-formatting") &&
-          del.hasClass("cm-formatting-link-string")
-        ) {
-          let urlEl: Element | null;
-          if (text === "(") urlEl = del.nextElementSibling;
-          else if (text === ")") urlEl = del.previousElementSibling;
-          else urlEl = null;
-          if (urlEl === null || !(urlEl instanceof HTMLElement)) {
-            console.error("unable to get url from: %o", del);
-            return;
-          }
-          info = await getMediaInfo(urlEl.innerText);
-        } else {
-          info = await getMediaInfo(text);
+
+        let links_text = del.querySelectorAll("span.cm-url");
+        let array = [...links_text];
+        let url_el = array.find(el => el.innerText.length > 1);
+
+        if (url_el === undefined) {
+
+          console.error("unable to get url from: %o", del);
+          return;
         }
+
+        info = await getMediaInfo(url_el.innerText);
+        //   if (
+        //     links_text
+        //   ) {
+        //     let urlEl: Element | null;
+        //     if (text === "(") urlEl = links_text.nextElementSibling;
+        //     else if (text === ")") urlEl = links_text.previousElementSibling;
+        //     else urlEl = null;
+        //     if (urlEl === null || !(urlEl instanceof HTMLElement)) {
+        //       console.error("unable to get url from: %o", del);
+        //       return;
+        //     }
+        //     info = await getMediaInfo(urlEl.innerText);
+        //   } else {
+        //     info = await getMediaInfo(text);
+        //   }
       }
 
       try {
