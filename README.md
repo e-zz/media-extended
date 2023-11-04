@@ -37,6 +37,14 @@ Note: for bilibili users, [bilibili plugin](https://github.com/aidenlx/mx-bili-p
 
 注意：v2.9.0开始，bilibili用户需要安装[bilibili plugin](https://github.com/aidenlx/mx-bili-plugin)以启用`高级bilibili功能`
 
+### How to open a video in Obsidian
+
+- In preview mode of Obsidian: Click on the link 
+- In live preview or source mode: 
+  - move cursor to the link, then press `Ctrl+Shift+Enter`
+  - or `Ctrl+Click` the end of the link
+    - [ ] Maybe `Ctrl+Shift+Click` is a better idea. Not tested yet.
+
 ## Compatibility
 
 The required API feature is only available for Obsidian v0.12.2+.
